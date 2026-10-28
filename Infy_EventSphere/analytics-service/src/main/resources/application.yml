@@ -1,0 +1,33 @@
+server:
+  port: 8087
+
+spring:
+  application:
+    name: analytics-service
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/eventsphere_analytics_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:root}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    show-sql: false
+
+services:
+  event-service:
+    url: http://${EVENT_SERVICE_HOST:localhost}:8081
+  registration-service:
+    url: http://${REGISTRATION_SERVICE_HOST:localhost}:8084
+  attendance-service:
+    url: http://${ATTENDANCE_SERVICE_HOST:localhost}:8085
+  feedback-service:
+    url: http://${FEEDBACK_SERVICE_HOST:localhost}:8086
+
+logging:
+  level:
+    root: INFO
+    com.infy.eventsphere: DEBUG

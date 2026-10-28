@@ -1,0 +1,29 @@
+server:
+  port: 8086
+
+spring:
+  application:
+    name: feedback-service
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/eventsphere_feedback_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:root}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    show-sql: false
+
+services:
+  attendance-service:
+    url: http://${ATTENDANCE_SERVICE_HOST:localhost}:8085
+  event-service:
+    url: http://${EVENT_SERVICE_HOST:localhost}:8081
+
+logging:
+  level:
+    root: INFO
+    com.infy.eventsphere: DEBUG
